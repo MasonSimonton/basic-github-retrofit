@@ -22,7 +22,7 @@ public interface Api {
     );
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://pcatease.mocklab.io")
+            .baseUrl("https://whispering-depths-34644.herokuapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 }

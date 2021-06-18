@@ -36,15 +36,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 textView.setText("Loading random repo...");
-                call.enqueue(new Callback<List<UserModel>>(){
+                call.clone().enqueue(new Callback<List<UserModel>>(){
                     @Override
                     public void onResponse(@NotNull Call<List<UserModel>> call, @NotNull Response<List<UserModel>> response){
                         List<UserModel> repos = response.body();
 
-                        //int index = (int) (Math.random() * repos.size());
-                        int index = 1;
-                        String text = "Random repo - " + repos.get(index).getName();
-                        textView.setText(text);
+                        if (response != null){
+                            int index = (int) (Math.random() * repos.size());
+                            //int index = 1;
+                            String text = "Random repo - " + repos.get(index).getName();
+                            textView.setText(text);
+                        }
+                        else{
+                            textView.setText("Empty Response");
+                        }
                     }
 
                     @Override
@@ -60,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 textView.setText("Loading specific repo...");
-                call2.enqueue(new Callback<UserModel>(){
+                call2.clone().enqueue(new Callback<UserModel>(){
                     @Override
                     public void onResponse(@NotNull Call<UserModel> call, @NotNull Response<UserModel> response){
 

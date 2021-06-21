@@ -15,6 +15,13 @@ public class UserModel {
     @Expose
     private String desc;
 
+    public UserModel(){}
+
+    public UserModel(String name, int id, String desc) {
+        this.name = name;
+        this.id = id;
+        this.desc = desc;
+    }
 
     public String getName(){
         return name;

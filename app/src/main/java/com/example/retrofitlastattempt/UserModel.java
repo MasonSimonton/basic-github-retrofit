@@ -5,12 +5,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class UserModel {
 
-    @SerializedName("name")
-    @Expose
-    private String name;
     @SerializedName("id")
     @Expose
     private int id;
+    @SerializedName("name")
+    @Expose
+    private String name;
     @SerializedName("desc")
     @Expose
     private String desc;
@@ -18,8 +18,8 @@ public class UserModel {
     public UserModel(){}
 
     public UserModel(String name, int id, String desc) {
-        this.name = name;
         this.id = id;
+        this.name = name;
         this.desc = desc;
     }
 

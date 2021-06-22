@@ -31,6 +31,8 @@ public interface Api {
             @Body UserModel property
     );
 
+    //Mock lab "https://pcatease.mocklab.io"
+    //ruby Rails "https://whispering-depths-34644.herokuapp.com/"
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://whispering-depths-34644.herokuapp.com/")
             .addConverterFactory(GsonConverterFactory.create())

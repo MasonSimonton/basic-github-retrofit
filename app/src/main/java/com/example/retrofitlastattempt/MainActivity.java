@@ -20,17 +20,18 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String text;
-    private int loadedRepo = 12;
     private final Api api = Api.retrofit.create(Api.class);
     private String name = "Mason's Crib";
     private int id = 12;
-    private String desc = "Just a testing property";
+    private int loadedRepo = 1;
+    private String desc = "A basic testing property";
     UserModel model = new UserModel(name, id, desc);
     private Call<List<UserModel>> call = api.loadRepositories();
-    private Call<UserModel> call2 = api.loadRepo(loadedRepo);
+    //private Call<UserModel> call2 = api.loadRepo(id);
     private Call<UserModel> call3 = api.newProperty(model);
-    TextView textView;
+    private List<UserModel> mockModels;
+    private List<UserModel> userModels;
+    static TextView textView;
     EditText textName;
     EditText textId;
     EditText textDesc;
@@ -50,11 +51,17 @@ public class MainActivity extends AppCompatActivity {
         button2 = (Button) findViewById(R.id.button2);
         button3 = (Button) findViewById(R.id.button3);
 
+        /*
+          each button calls a different Retrofit request.
+          1: gets list of java objects and picks random one
+          2: selects a specific
+          3:
+         */
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //textView.setText("Loading random repo...");
-                textView.setText(Repository.firstCall());
+                textView.setText("Loading random repo...");
+                Repository.firstCall();
             }
         });
 
@@ -62,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 textView.setText("Loading specific repo...");
-                text = Repository.secondCall(id);
-                textView.setText(text);
+                Repository.secondCall(loadedRepo);
             }
         });
 
@@ -76,12 +82,15 @@ public class MainActivity extends AppCompatActivity {
                 //desc = textDesc.getText().toString();
                 if(name != "" && desc != "") {
                     model = new UserModel(name, id, desc);
-                    text = Repository.thirdCall(model);
-                    textView.setText(text);
+                    Repository.thirdCall(model);
                 }
                 else textView.setText("need name AND description");
             }
         });
+    }
+
+    public static void setTextView(String string){
+        textView.setText(string);
     }
 
     public void firstCall(){
@@ -132,7 +141,12 @@ public class MainActivity extends AppCompatActivity {
         call3.clone().enqueue(new Callback<UserModel>() {
             @Override
             public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                secondCall(id);
+                if(response.body() != null) {
+                    textView.setText("Success!");//secondCall(id);
+                }
+                else{
+                    textView.setText("Empty Response");
+                }
             }
             @Override
             public void onFailure(Call<UserModel> call, Throwable t) {

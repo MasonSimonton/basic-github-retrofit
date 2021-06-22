@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final Api api = Api.retrofit.create(Api.class);
     private String name = "Mason's Crib";
-    private int id = 12;
+    private int id = 7;
     private int loadedRepo = 1;
     private String desc = "A basic testing property";
     UserModel model = new UserModel(name, id, desc);
@@ -91,68 +91,5 @@ public class MainActivity extends AppCompatActivity {
 
     public static void setTextView(String string){
         textView.setText(string);
-    }
-
-    public void firstCall(){
-        call.clone().enqueue(new Callback<List<UserModel>>(){
-            @Override
-            public void onResponse(@NotNull Call<List<UserModel>> call, @NotNull Response<List<UserModel>> response){
-                List<UserModel> repos = response.body();
-                if (response != null){
-                    int index = (int) (Math.random() * repos.size());
-                    //int index = 1;
-                    String text = "Random repo - " + repos.get(index).getName();
-                    textView.setText(text);
-                }
-                else{
-                    textView.setText("Empty Response");
-                }
-            }
-            @Override
-            public void onFailure(Call<List<UserModel>> call, Throwable t) {
-                textView.setText("Request Failed");
-                Log.e("RequestCall", "Request failed");
-            }
-        });
-    }
-
-    public void secondCall(int i){
-        api.loadRepo(i).enqueue(new Callback<UserModel>() {
-            @Override
-            public void onResponse(@NotNull Call<UserModel> call, @NotNull Response<UserModel> response){
-                if(response.body() != null) {
-                    UserModel repos = response.body();
-                    String text = "specific repo - " + repos.getName();
-                    textView.setText(text);
-                }
-                else{
-                    textView.setText("Empty response");
-                }
-            }
-            @Override
-            public void onFailure(Call<UserModel> call, Throwable t) {
-                textView.setText("Request Failed");
-                Log.e("RequestCall", "Request failed");
-            }
-        });
-    }
-
-    public void thirdCall(){
-        call3.clone().enqueue(new Callback<UserModel>() {
-            @Override
-            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                if(response.body() != null) {
-                    textView.setText("Success!");//secondCall(id);
-                }
-                else{
-                    textView.setText("Empty Response");
-                }
-            }
-            @Override
-            public void onFailure(Call<UserModel> call, Throwable t) {
-                textView.setText("Request Failed");
-                Log.e("RequestCall", "Request failed");
-            }
-        });
     }
 }

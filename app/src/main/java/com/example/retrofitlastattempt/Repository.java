@@ -28,8 +28,7 @@ public class Repository {
                 if (response != null){
                     int index = (int) (Math.random() * repos.size());
                     //int index = 1;
-                    MainActivity.setTextView( "Random repo - " + repos.get(index).getName());
-
+                    MainActivity.setTextView( "Random Property - " + repos.get(index).getName());
                 }
                 else{
                     MainActivity.setTextView("Empty Response");
@@ -49,7 +48,7 @@ public class Repository {
             public void onResponse(@NotNull Call<UserModel> call, @NotNull Response<UserModel> response){
                 if(response.body() != null) {
                     UserModel repos = response.body();
-                    MainActivity.setTextView("specific repo - " + repos.getName());
+                    MainActivity.setTextView("Specific Property - " + repos.getName());
                 }
                 else{
                     MainActivity.setTextView("Empty response");

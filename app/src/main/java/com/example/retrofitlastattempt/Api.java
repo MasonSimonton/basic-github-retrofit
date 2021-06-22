@@ -2,10 +2,14 @@ package com.example.retrofitlastattempt;
 
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -26,9 +30,12 @@ public interface Api {
             @Path("id") int id
     );
 
+    //@FormUrlEncoded
     @POST("/properties")
     Call<UserModel> newProperty(
-            @Body UserModel property
+            @Body UserModel model
+            //@Field("name") String name,
+            //@Field("description") String desc
     );
 
     //Mock lab "https://pcatease.mocklab.io"

@@ -1,12 +1,6 @@
 package com.example.retrofitlastattempt;
 
 import android.util.Log;
-import android.util.LogPrinter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import androidx.lifecycle.MutableLiveData;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,11 +16,11 @@ public class Repository {
     //private Call<List<UserModel>> call = api.loadRepositories();
 
     public static void firstCall(){
-        api.loadRepositories().clone().enqueue(new Callback<List<UserModel>>(){
+        api.loadRepositories().clone().enqueue(new Callback<List<PropertyModel>>(){
             @Override
-            public void onResponse(@NotNull Call<List<UserModel>> call, @NotNull Response<List<UserModel>> response){
-                List<UserModel> property = response.body();
-                if (response != null){
+            public void onResponse(@NotNull Call<List<PropertyModel>> call, @NotNull Response<List<PropertyModel>> response){
+                List<PropertyModel> property = response.body();
+                if (response.body() != null){
                     int index = (int) (Math.random() * property.size());
                     MainActivity.setTextView( "Random Property - " + property.get(index).getName());
                 }
@@ -35,7 +29,7 @@ public class Repository {
                 }
             }
             @Override
-            public void onFailure(Call<List<UserModel>> call, Throwable t) {
+            public void onFailure(Call<List<PropertyModel>> call, Throwable t) {
                 MainActivity.setTextView("Request Failed");
                 Log.e("RequestCall", "Request failed");
             }
@@ -43,11 +37,11 @@ public class Repository {
     }
 
     public static void secondCall(int i){
-        api.loadRepo(i).enqueue(new Callback<UserModel>() {
+        api.loadRepo(i).enqueue(new Callback<PropertyModel>() {
             @Override
-            public void onResponse(@NotNull Call<UserModel> call, @NotNull Response<UserModel> response){
+            public void onResponse(@NotNull Call<PropertyModel> call, @NotNull Response<PropertyModel> response){
                 if(response.body() != null) {
-                    UserModel property = response.body();
+                    PropertyModel property = response.body();
                     MainActivity.setTextView("Specific Property - " + property.getName());
                 }
                 else{
@@ -55,23 +49,23 @@ public class Repository {
                 }
             }
             @Override
-            public void onFailure(Call<UserModel> call, Throwable t) {
+            public void onFailure(Call<PropertyModel> call, Throwable t) {
                 MainActivity.setTextView("Request Failed");
                 Log.e("RequestCall", "Request failed");
             }
         });
     }
 
-    public static void thirdCall(UserModel model){
-        api.newProperty(model).clone().enqueue(new Callback<UserModel>() {
+    public static void thirdCall(PropertyModel model){
+        api.newProperty(model.getName(), model.getDesc(), model.getCreatedAt(), model.getUpdatedAt()).clone().enqueue(new Callback<PropertyModel>() {
             @Override
-            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+            public void onResponse(Call<PropertyModel> call, Response<PropertyModel> response) {
                 //secondCall(model.getId());
                 Log.e("RequestCall", response.toString());
                 MainActivity.setTextView("Complete!");
             }
             @Override
-            public void onFailure(Call<UserModel> call, Throwable t) {
+            public void onFailure(Call<PropertyModel> call, Throwable t) {
                 MainActivity.setTextView("Request Failed");
                 Log.e("RequestCall", "Request failed");
             }
@@ -79,11 +73,11 @@ public class Repository {
     }
 
     public static void fourthCall(){
-        api.loadRepositories().clone().enqueue(new Callback<List<UserModel>>(){
+        api.loadRepositories().clone().enqueue(new Callback<List<PropertyModel>>(){
             @Override
-            public void onResponse(@NotNull Call<List<UserModel>> call, @NotNull Response<List<UserModel>> response){
-                List<UserModel> property = response.body();
-                if (response != null){
+            public void onResponse(@NotNull Call<List<PropertyModel>> call, @NotNull Response<List<PropertyModel>> response){
+                List<PropertyModel> property = response.body();
+                if (response.body() != null){
                     int index = property.size() -1;
                     MainActivity.setTextView( "Random Property - " + property.get(index).getName());
                 }
@@ -92,7 +86,7 @@ public class Repository {
                 }
             }
             @Override
-            public void onFailure(Call<List<UserModel>> call, Throwable t) {
+            public void onFailure(Call<List<PropertyModel>> call, Throwable t) {
                 MainActivity.setTextView("Request Failed");
                 Log.e("RequestCall", "Request failed");
             }

@@ -2,7 +2,6 @@ package com.example.retrofitlastattempt;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,23 +9,19 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
     private final Api api = Api.retrofit.create(Api.class);
-    private String name = "Mason's Crib";
+    private String name = "Evil Lair";
     private int id = 7;
     private int loadedRepo = 1;
     private String desc = "A basic testing property";
-    UserModel model;// = new UserModel(name, id, desc);
-    private Call<List<UserModel>> call = api.loadRepositories();
+    PropertyModel model = new PropertyModel(name, desc);
+    private Call<List<PropertyModel>> call = api.loadRepositories();
     //private Call<UserModel> call2 = api.loadRepo(id);
     //private Call<UserModel> call3 = api.newProperty(model);
     //private List<UserModel> userModels;
@@ -75,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
                 //name = textName.getText().toString();
                 //id = 12;
                 //desc = textDesc.getText().toString();
-                if(name != "" && desc != "") {
-                    model = new UserModel(name, desc);
+                //if(name != "" && desc != "") {
+                    //model = new PropertyModel(name, desc);
                     Repository.thirdCall(model);
-                }
-                else textView.setText("need name AND description");
+                //}
+                //else textView.setText("need name AND description");
             }
         });
 

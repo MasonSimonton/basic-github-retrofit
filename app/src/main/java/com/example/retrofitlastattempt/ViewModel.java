@@ -1,19 +1,12 @@
 package com.example.retrofitlastattempt;
 
 import android.app.Application;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.lifecycle.LiveData;
 
-import java.util.List;
-
-import retrofit2.Call;
-
 public class ViewModel extends androidx.lifecycle.ViewModel {
     private Repository repository;
-    private LiveData<UserModel> userModelLiveData;
+    private LiveData<PropertyModel> userModelLiveData;
 
     public ViewModel(Application application){ super(); }
 

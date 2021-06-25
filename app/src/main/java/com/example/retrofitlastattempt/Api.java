@@ -28,14 +28,19 @@ public interface Api {
             @Path("id") int id
     );
 
-    @FormUrlEncoded
+    @GET("/users")
+    Call<List<UserModel>> loadUsers(
+
+    );
+
+    //@FormUrlEncoded
     @POST("/properties")
     Call<PropertyModel> newProperty(
-            //@Body PropertyModel model
-            @Field("name") String name,
-            @Field("description") String desc,
-            @Field("created_at") String created_at,
-            @Field("updated_at") String updated_at
+            @Body PropertyModel model
+            //@Field("name") String name,
+            //@Field("description") String desc,
+            //@Field("created_at") String created_at,
+            //@Field("updated_at") String updated_at
 
     );
 

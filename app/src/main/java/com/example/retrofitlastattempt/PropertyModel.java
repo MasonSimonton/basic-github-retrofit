@@ -11,9 +11,7 @@ import java.util.Date;
 
 public class PropertyModel {
 
-    //@SerializedName("id")
-    //@Expose
-    //private int id;
+
     @SerializedName("name")
     @Expose
     private String name;
@@ -36,6 +34,8 @@ public class PropertyModel {
         //this.id = id;
         this.name = name;
         this.description = desc;
+        this.createdAt = getCreatedAt();
+        this.updatedAt = getUpdatedAt();
     }
 
     public String getCreatedAt() {
@@ -54,11 +54,11 @@ public class PropertyModel {
         this.updatedAt = updatedAt;
     }
 
-    public PropertyModel(String name, String desc){
-        this.name = name;
-        this.description = desc;
-        createdAt = dateFormat.format(date);
-        updatedAt = dateFormat.format(date);
+    public PropertyModel(String name, String description){
+        setName(name);
+        setDesc(description);
+        //createdAt = dateFormat.format(date);
+        //updatedAt = dateFormat.format(date);
     }
 
     public PropertyModel(String name){

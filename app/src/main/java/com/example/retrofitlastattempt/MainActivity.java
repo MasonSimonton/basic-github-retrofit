@@ -20,12 +20,17 @@ public class MainActivity extends AppCompatActivity {
     private int id = 7;
     private int loadedRepo = 1;
     private String desc = "A basic testing property";
+    private String firstname = "Mason";
+    private String secondname = "Simonton";
+    private String dob = "1997-12-31";
+    private String status = "Stupid";
+    private String paygrade = "hahahahaha";
+    private String department = "computers or something";
     PropertyModel model = new PropertyModel(name, desc);
+    UserModel userModel = new UserModel(firstname, secondname, dob, status, paygrade, department);
     private Call<List<PropertyModel>> call = api.loadRepositories();
-    //private Call<UserModel> call2 = api.loadRepo(id);
-    //private Call<UserModel> call3 = api.newProperty(model);
-    //private List<UserModel> userModels;
     static TextView textView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         Button button2 = (Button) findViewById(R.id.button2);
         Button button3 = (Button) findViewById(R.id.button3);
         Button button4 = (Button) findViewById(R.id.button4);
+        Button button5 = (Button) findViewById(R.id.button5);
 
         /*
           each button calls a different Retrofit request.
@@ -51,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 textView.setText("Loading random repo...");
-                Repository.firstCall();
+                //Repository.randomProperty();
+                Repository.randomUser();
             }
         });
 
@@ -59,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 textView.setText("Loading specific repo...");
-                Repository.secondCall(loadedRepo);
+
+                Repository.specificProperty(loadedRepo);
             }
         });
 
@@ -67,21 +75,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 textView.setText("creating new property...");
-                //name = textName.getText().toString();
-                //id = 12;
-                //desc = textDesc.getText().toString();
-                //if(name != "" && desc != "") {
-                    //model = new PropertyModel(name, desc);
-                    Repository.thirdCall(model);
-                //}
-                //else textView.setText("need name AND description");
+                name = textName.getText().toString();
+                desc = textDesc.getText().toString();
+                if(name.isEmpty() == false & desc.isEmpty() == false) {
+                    model = new PropertyModel(name, desc);
+                    Repository.newProperty(model);
+                }
+                else textView.setText("need name AND description");
             }
         });
 
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Repository.fourthCall();
+                Repository.lastProperty();
+            }
+        });
+
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Repository.randomProperty();
             }
         });
     }

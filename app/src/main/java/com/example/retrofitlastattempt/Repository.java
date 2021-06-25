@@ -15,7 +15,7 @@ public class Repository {
     private static final Api api = Api.retrofit.create(Api.class);
     //private Call<List<UserModel>> call = api.loadRepositories();
 
-    public static void firstCall(){
+    public static void randomProperty(){
         api.loadRepositories().clone().enqueue(new Callback<List<PropertyModel>>(){
             @Override
             public void onResponse(@NotNull Call<List<PropertyModel>> call, @NotNull Response<List<PropertyModel>> response){
@@ -36,7 +36,25 @@ public class Repository {
         });
     }
 
-    public static void secondCall(int i){
+    public static void randomUser(){
+        api.loadUsers().clone().enqueue(new Callback<List<UserModel>>() {
+            @Override
+            public void onResponse(Call<List<UserModel>> call, Response<List<UserModel>> response) {
+                List<UserModel> users = response.body();
+                if (response.body() != null){
+                    int index = (int) (Math.random() * users.size());
+                    MainActivity.setTextView("Random User - " + users.get(index).getFirstname());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<UserModel>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public static void specificProperty(int i){
         api.loadRepo(i).enqueue(new Callback<PropertyModel>() {
             @Override
             public void onResponse(@NotNull Call<PropertyModel> call, @NotNull Response<PropertyModel> response){
@@ -56,8 +74,8 @@ public class Repository {
         });
     }
 
-    public static void thirdCall(PropertyModel model){
-        api.newProperty(model.getName(), model.getDesc(), model.getCreatedAt(), model.getUpdatedAt()).clone().enqueue(new Callback<PropertyModel>() {
+    public static void newProperty(PropertyModel model){
+        api.newProperty(model).clone().enqueue(new Callback<PropertyModel>() {
             @Override
             public void onResponse(Call<PropertyModel> call, Response<PropertyModel> response) {
                 //secondCall(model.getId());
@@ -71,8 +89,23 @@ public class Repository {
             }
         });
     }
+    public static void newUser(UserModel model){
+        api.newUser(model).clone().enqueue(new Callback<UserModel>() {
+            @Override
+            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                Log.e("RequestCall", response.toString());
+                MainActivity.setTextView("Complete!");
+            }
 
-    public static void fourthCall(){
+            @Override
+            public void onFailure(Call<UserModel> call, Throwable t) {
+                MainActivity.setTextView("Request Failed");
+                Log.e("RequestCall", "Request failed");
+            }
+        });
+    }
+
+    public static void lastProperty(){
         api.loadRepositories().clone().enqueue(new Callback<List<PropertyModel>>(){
             @Override
             public void onResponse(@NotNull Call<List<PropertyModel>> call, @NotNull Response<List<PropertyModel>> response){

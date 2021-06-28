@@ -125,4 +125,25 @@ public class Repository {
             }
         });
     }
+
+    public static void lastUser() {
+        api.loadUsers().clone().enqueue(new Callback<List<UserModel>>(){
+            @Override
+            public void onResponse(@NotNull Call<List<UserModel>> call, @NotNull Response<List<UserModel>> response){
+                List<UserModel> property = response.body();
+                if (response.body() != null){
+                    int index = property.size() -1;
+                    MainActivity.setTextView( "Random Property - " + property.get(index).getFirstname());
+                }
+                else{
+                    MainActivity.setTextView("Empty Response");
+                }
+            }
+            @Override
+            public void onFailure(Call<List<UserModel>> call, Throwable t) {
+                MainActivity.setTextView("Request Failed");
+                Log.e("RequestCall", "Request failed");
+            }
+        });
+    }
 }

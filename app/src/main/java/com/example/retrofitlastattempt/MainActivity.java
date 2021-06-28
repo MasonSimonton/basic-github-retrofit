@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         Button button3 = (Button) findViewById(R.id.button3);
         Button button4 = (Button) findViewById(R.id.button4);
         Button button5 = (Button) findViewById(R.id.button5);
+        Button button6 = (Button) findViewById(R.id.button6);
+
 
         /*
           each button calls a different Retrofit request.
@@ -98,7 +100,17 @@ public class MainActivity extends AppCompatActivity {
                 Repository.randomProperty();
             }
         });
+
+        button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Repository.lastUser();
+            }
+        });
     }
+
+
+
 
     public static void setTextView(String string){
         textView.setText(string);
